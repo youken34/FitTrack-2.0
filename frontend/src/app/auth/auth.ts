@@ -130,7 +130,7 @@ export class AuthComponent implements OnInit {
 
     this.http
       .post(
-        'http://localhost:5000/api/users/register',
+        'http://localhost:3000/users/register',
         {
           firstName: this.registerForm.firstName,
           lastName: this.registerForm.lastName,

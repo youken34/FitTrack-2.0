@@ -27,10 +27,10 @@ export class User {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Column('int')
+  @Column({ type: 'float', default: 0 })
   weight: number;
 
-  @Column('int')
+  @Column({ type: 'float', default: 0 })
   targetWeight: number;
 
   @OneToMany(() => WeightHistory, (history) => history.user, { cascade: true })
