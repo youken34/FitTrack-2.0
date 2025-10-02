@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
-import { AuthStateService } from '../services/auth-state.service';
+import { AuthStateService } from '../services/auth-state';
 
 interface LoginForm {
   email: string;
@@ -106,7 +106,7 @@ export class AuthComponent implements OnInit {
       )
       .subscribe({
         next: (data: any) => {
-          console.log('✅ Connecté:', data);
+          console.log(data.message);
 
           // Stocker token et user dans localStorage
           localStorage.setItem('token', data.token);

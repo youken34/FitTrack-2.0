@@ -31,4 +31,8 @@ export class UsersService {
   async findAll(): Promise<User[]> {
     return this.userRepository.find({ relations: ['weightHistory'] });
   }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.userRepository.findOne({ where: { email } });
+  }
 }

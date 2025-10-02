@@ -1,0 +1,68 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-6">
+  <div class="max-w-7xl mx-auto">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h1 class="text-4xl font-bold text-white mb-2">Dashboard Sportif</h1>
+        <p class="text-purple-200">Suivez vos performances et atteignez vos objectifs</p>
+      </div>
+      <button
+        class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+        <lucide-icon name="Plus" class="w-5 h-5"></lucide-icon>
+        Ajouter une séance
+      </button>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div *ngFor="let stat of stats"
+        class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:bg-white/15 transition-all duration-300">
+        <div class="flex items-center gap-4">
+          <div [ngClass]="'p-3 bg-' + stat.color + '-500/20 rounded-xl'">
+            <lucide-icon [name]="stat.icon" class="w-8 h-8" [ngClass]="'text-' + stat.color + '-400'"></lucide-icon>
+          </div>
+          <div>
+            <p class="text-gray-300 text-sm">{{ stat.title }}</p>
+            <p class="text-3xl font-bold text-white">{{ stat.value }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+        <h3 class="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+          <lucide-icon name="TrendingUp" class="w-5 h-5 text-purple-400"></lucide-icon>
+          Évolution du poids
+        </h3>
+        <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" chartType="line">
+        </canvas>
+      </div>
+      <!-- TODO: Ajouter le BarChart de weeklyActivity -->
+    </div>
+
+    <!-- Recent Sessions -->
+    <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
+      <h3 class="text-xl font-semibold text-white mb-6">Séances récentes</h3>
+      <div class="space-y-4" *ngFor="let session of recentSessions">
+        <div
+          class="bg-white/5 rounded-xl p-4 hover:bg-white/10 transition-colors duration-200 flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <div class="p-2 bg-purple-500/20 rounded-lg">
+              <lucide-icon name="Activity" class="w-5 h-5 text-purple-400"></lucide-icon>
+            </div>
+            <div>
+              <h4 class="text-white font-semibold">{{ session.type }}</h4>
+              <p class="text-gray-300 text-sm">{{ session.date }}</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <p class="text-white font-semibold">{{ session.duration }}</p>
+            <p class="text-gray-300 text-sm">{{ session.calories }} cal</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
