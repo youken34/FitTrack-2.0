@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
+import { AuthStateService } from '../services/auth-state.service';
 
 interface LoginForm {
   email: string;
@@ -48,9 +49,19 @@ export class AuthComponent implements OnInit {
     acceptTerms: false,
   };
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private authState: AuthStateService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.authState.init();
+
+    this.authState.user$.subscribe((user) => {
+      console.log('Utilisateur connecté :', user);
+    });
+  }
 
   get passwordsMatch(): boolean {
     if (!this.registerForm.confirmPassword) return true;
@@ -143,7 +154,6 @@ export class AuthComponent implements OnInit {
         next: (data: any) => {
           console.log('✅ Inscrit:', data);
 
-          // Stocker token et user dans localStorage
           localStorage.setItem('token', data.token);
           localStorage.setItem('user', JSON.stringify(data.user));
 
